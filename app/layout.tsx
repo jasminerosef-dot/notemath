@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Nunito, VT323, Press_Start_2P } from "next/font/google";
+import { Nunito, VT323, Press_Start_2P, Bitcount_Prop_Double } from "next/font/google";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -19,6 +19,12 @@ const pressStart = Press_Start_2P({
   variable: "--font-pixel",
 });
 
+const bitcountPropDouble = Bitcount_Prop_Double({
+  weight: "variable",
+  subsets: ["latin"],
+  variable: "--font-bitcount",
+});
+
 export const metadata: Metadata = {
   title: "NoteMath — send cute equations to friends 💕",
   description: "Type words and messages as equations, then send them to your friends via text.",
@@ -32,7 +38,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${nunito.variable} ${vt323.variable} ${pressStart.variable} h-full`}
+      className={`${nunito.variable} ${vt323.variable} ${pressStart.variable} ${bitcountPropDouble.variable} h-full`}
     >
       <body
         className="min-h-full flex flex-col"

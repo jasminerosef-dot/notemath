@@ -18,9 +18,8 @@ Cute, wholesome, girlie, playful, fun. Think Y2K meets modern pastel aesthetic.
 - Equals button: Hot pink, bold
 
 ## Typography
-- Friendly, rounded font — use Google Fonts (Nunito or Poppins)
-- Playful but readable
-- Display screen font, pixelated (Bitcount Prop Double)
+- Playful 
+- pixelated font (Bitcount Prop Double)
 
 ## Key Features
 - Calculator centred on page

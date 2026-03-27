@@ -42,7 +42,7 @@ html, body {
 }
 
 .tb-title {
-  font-family: var(--font-pixel), monospace;
+  font-family: var(--font-bitcount), var(--font-pixel), monospace;
   font-size: 0.68rem;
   color: #ff1a72;
   letter-spacing: 0.06em;
@@ -57,10 +57,10 @@ html, body {
   background: #ccc9c5;
   background-image: radial-gradient(circle, #b8b5b1 1px, transparent 1px);
   background-size: 3px 3px;
-  padding: 12px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 6px; /* 2. slightly more breathing room */
+  gap: 5px;
 }
 
 /* ── Display — 1. PIXEL FONT ──────────────────────────── */
@@ -69,19 +69,19 @@ html, body {
   border: 2px solid #555;
   border-radius: 4px;
   box-shadow: inset 2px 2px 4px rgba(0,0,0,0.18);
-  padding: 10px 12px;
-  min-height: 52px;
+  padding: 14px 16px;
+  min-height: 90px;
   /* 1. TYPOGRAPHY — pixel font on the display */
-  font-family: var(--font-pixel), monospace;
-  font-size: 0.72rem;
-  line-height: 1.6;
+  font-family: var(--font-bitcount), var(--font-pixel), monospace;
+  font-size: 1.5rem;
+  line-height: 1.4;
   color: #000;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   text-align: right;
   word-break: break-all;
-  margin-bottom: 2px;
+  margin-bottom: 8px;
 }
 
 .display-zero {
@@ -101,13 +101,13 @@ html, body {
 .key {
   flex: 1;
   min-width: 0;
-  height: 48px; /* 2. slightly taller for wider aspect */
+  height: 44px;
   background: #fff;
   border: 2px solid #222;
   border-radius: 8px;
   /* 1. TYPOGRAPHY — Press Start 2P */
-  font-family: var(--font-pixel), monospace;
-  font-size: 0.62rem;
+  font-family: var(--font-bitcount), var(--font-pixel), monospace;
+  font-size: 0.78rem;
   color: #111;
   cursor: pointer;
   box-shadow: 0 3px 0 #333;
@@ -166,7 +166,7 @@ html, body {
 .space-key {
   flex: 2;
   /* "space" is 5 chars — needs smaller pixel font size */
-  font-size: 0.42rem;
+  font-size: 0.55rem;
   letter-spacing: 0.14em;
   background: #f0f0f0;
 }
@@ -189,7 +189,7 @@ html, body {
   color: #fff;
   border: 3px solid #111;
   border-radius: 10px;
-  font-family: var(--font-pixel), monospace;
+  font-family: var(--font-bitcount), var(--font-pixel), monospace;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   cursor: pointer;
