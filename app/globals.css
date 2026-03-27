@@ -1,26 +1,217 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ── Reset ────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html, body {
+  background: #fdd5e0; /* 1. BACKGROUND — lightened pink */
+  -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ══════════════════════════════════════════════════════
+   OUTER WINDOW
+   ══════════════════════════════════════════════════════ */
+
+.calc-wrap {
+  width: 100%;
+  max-width: 440px; /* 2. WIDER — was 320px */
+  border: 3px solid #111;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ── Title bar ────────────────────────────────────────── */
+.calc-titlebar {
+  background: #111;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  user-select: none;
+}
+
+.tb-icon {
+  width: 17px;
+  height: 17px;
+  border: 2.5px solid #fff;
+  flex-shrink: 0;
+}
+
+.tb-title {
+  font-family: var(--font-pixel), monospace;
+  font-size: 0.68rem;
+  color: #ff1a72;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-shadow:
+    0 0 6px rgba(255, 26, 114, 0.7),
+    0 0 14px rgba(255, 26, 114, 0.3);
+}
+
+/* ── Calculator body ──────────────────────────────────── */
+.calc-body {
+  background: #ccc9c5;
+  background-image: radial-gradient(circle, #b8b5b1 1px, transparent 1px);
+  background-size: 3px 3px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* 2. slightly more breathing room */
+}
+
+/* ── Display — 1. PIXEL FONT ──────────────────────────── */
+.calc-display {
+  background: #fff;
+  border: 2px solid #555;
+  border-radius: 4px;
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,0.18);
+  padding: 10px 12px;
+  min-height: 52px;
+  /* 1. TYPOGRAPHY — pixel font on the display */
+  font-family: var(--font-pixel), monospace;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: right;
+  word-break: break-all;
+  margin-bottom: 2px;
+}
+
+.display-zero {
+  color: #888;
+}
+
+/* ── Key rows ─────────────────────────────────────────── */
+.key-row {
+  display: flex;
+  gap: 6px;
+}
+
+/* ══════════════════════════════════════════════════════
+   BASE KEY — 1. PIXEL FONT on all buttons
+   ══════════════════════════════════════════════════════ */
+
+.key {
+  flex: 1;
+  min-width: 0;
+  height: 48px; /* 2. slightly taller for wider aspect */
+  background: #fff;
+  border: 2px solid #222;
+  border-radius: 8px;
+  /* 1. TYPOGRAPHY — Press Start 2P */
+  font-family: var(--font-pixel), monospace;
+  font-size: 0.62rem;
+  color: #111;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #333;
+  transition: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.02em;
+}
+
+.key:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 transparent;
+}
+
+.key:disabled {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ── Utility keys ─────────────────────────────────────── */
+.util-key {
+  background: #e8e8e8;
+  color: #111;
+}
+
+/* ── Hot pink equals ──────────────────────────────────── */
+.equals-key {
+  background: #ff1a72;
+  border-color: #cc004e;
+  color: #fff;
+  font-weight: 400;
+  box-shadow: 0 3px 0 #990038;
+}
+
+.equals-key:active {
+  box-shadow: 0 0 0 transparent;
+}
+
+/* ── Operator keys ────────────────────────────────────── */
+.op-key {
+  background: #f0f0f0;
+  color: #111;
+}
+
+/* ── Letter keys ──────────────────────────────────────── */
+.letter-key {
+  background: #fff;
+}
+
+/* ── SPACE key — wider, smaller text to fit label ─────── */
+.space-key {
+  flex: 2;
+  /* "space" is 5 chars — needs smaller pixel font size */
+  font-size: 0.42rem;
+  letter-spacing: 0.14em;
+  background: #f0f0f0;
+}
+
+/* ── Heart key ────────────────────────────────────────── */
+.heart-key {
+  font-size: 1.1rem; /* emoji — keep normal size */
+}
+
+/* ══════════════════════════════════════════════════════
+   3. SHARE BUTTON — outside the calculator body
+      Styled like a chunky retro arcade button
+   ══════════════════════════════════════════════════════ */
+
+.share-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 15px 20px;
+  background: #ff1a72;
+  color: #fff;
+  border: 3px solid #111;
+  border-radius: 10px;
+  font-family: var(--font-pixel), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  /* Hard pixel drop shadow — like Pomodoro START button */
+  box-shadow: 4px 4px 0 #111;
+  transition: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.share-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 transparent;
+}
+
+.share-btn:disabled {
+  opacity: 0.38;
+  cursor: default;
+  pointer-events: none;
 }
