@@ -235,8 +235,8 @@ export default function Calculator() {
             </div>
           ))}
 
-          {/* Row 7 — SPACE(×3) Z 💕 → fills 5 flex units */}
-          <div className="key-row">
+          {/* Row 7 — SPACE spans cols 1–3, Z=col 4, 💕=col 5 */}
+          <div className="key-row bottom-row">
             <button className="key space-key" onClick={() => append(' ')} disabled={finalized}>
               <span>SPACE</span>
             </button>

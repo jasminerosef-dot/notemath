@@ -170,11 +170,21 @@ html, body {
   background: #fff;
 }
 
-/* ── SPACE key — wider, same height as other keys ────── */
+/* ── Bottom row — CSS grid so SPACE spans exactly 3 columns ──
+   Flex free-space differs between 5-item rows (4 gaps) and
+   3-item rows (2 gaps), so flex ratios can never align them.
+   Grid repeat(5,1fr) uses the same column math as every row above:
+   each 1fr = (row_w − 4×5px) / 5 = one button width.           */
+.bottom-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+/* SPACE spans columns 1–3; Z and 💕 auto-place in 4 and 5. */
 .space-key {
-  flex: 3;
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
+  grid-column: span 3;
+  font-size: 1.3rem;
+  letter-spacing: 0.12em;
   background: #f0f0f0;
 }
 
