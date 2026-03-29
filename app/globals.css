@@ -68,12 +68,11 @@ html, body {
   background: #fff;
   border: 2px solid #555;
   border-radius: 4px;
-  box-shadow: inset 2px 2px 4px rgba(0,0,0,0.18);
   padding: 10px 12px;
   min-height: 60px;
   /* 1. TYPOGRAPHY — pixel font on the display */
   font-family: var(--font-bitcount), var(--font-pixel), monospace;
-  font-size: 1.5rem;
+  font-size: 2.2rem;
   line-height: 1.4;
   color: #000;
   display: flex;
@@ -115,10 +114,32 @@ html, body {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   outline: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* position: relative so the inner <span> can use absolute centering.
+     Both flex and line-height centering break in html2canvas on fixed-height
+     elements; absolute + transform is the approach html2canvas handles correctly. */
+  position: relative;
   letter-spacing: 0.02em;
+}
+
+/* Text inside every key — absolutely centred.
+   html2canvas computes the fill-y as: Range.top + fontMetrics.baseline
+   fontMetrics.baseline is measured against a line-height:normal container,
+   so Range.top must also be the top of a normal-height line box for the
+   two offsets to cancel correctly.  line-height:1 leaves half-leading=0,
+   which means the line-box top ≠ what the baseline metric expects, shifting
+   glyphs down by (normal_lh – em)/2 in the canvas output.
+   Using line-height:normal makes the cancellation exact (≤1px residual).
+   Horizontal centering uses left/right/text-align to avoid a second
+   percentage transform that is irrelevant to the vertical calculation. */
+.key > span {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  line-height: normal;
+  text-align: center;
+  pointer-events: none;
 }
 
 .key:active {
@@ -136,18 +157,6 @@ html, body {
 .util-key {
   background: #e8e8e8;
   color: #111;
-}
-
-/* ── Hot pink equals ──────────────────────────────────── */
-.equals-key {
-  background: #ff1a72;
-  border-color: #cc004e;
-  color: #fff;
-  box-shadow: 3px 3px 0 #990038;
-}
-
-.equals-key:active {
-  box-shadow: 0 0 0 transparent;
 }
 
 /* ── Operator keys ────────────────────────────────────── */
