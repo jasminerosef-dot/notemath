@@ -178,13 +178,15 @@ html, body {
 .bottom-row {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  gap: 5px; /* explicit — don't rely on .key-row cascade */
 }
 
-/* SPACE spans columns 1–3; Z and 💕 auto-place in 4 and 5. */
+/* SPACE spans columns 1–3; Z and 💕 auto-place in 4 and 5.
+   font-size inherits 1.4rem from .key — same visual weight as all
+   other keys.  letter-spacing spreads the word nicely at that size. */
 .space-key {
   grid-column: span 3;
-  font-size: 1.3rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   background: #f0f0f0;
 }
 

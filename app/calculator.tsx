@@ -4,11 +4,11 @@ import { useState, useRef } from 'react'
 import html2canvas from 'html2canvas'
 
 const LETTER_ROWS: string[][] = [
-  ['A', 'B', 'C', 'D', 'E'],
-  ['F', 'G', 'H', 'I', 'J'],
-  ['K', 'L', 'M', 'N', 'O'],
-  ['P', 'Q', 'R', 'S', 'T'],
-  ['U', 'V', 'W', 'X', 'Y'],
+  ['Q', 'W', 'E', 'R', 'T'],
+  ['Y', 'U', 'I', 'O', 'P'],
+  ['A', 'S', 'D', 'F', 'G'],
+  ['H', 'J', 'K', 'L', 'X'],
+  ['C', 'V', 'B', 'N', 'M'],
 ]
 
 export default function Calculator() {
@@ -124,9 +124,10 @@ export default function Calculator() {
 
     // Helper: set letter-spacing (Canvas 2D Level 2, available in modern browsers)
     function applyLS(ls: string) {
-      if ('letterSpacing' in ctx) {
+      const px = parseFloat(ls)
+      if ('letterSpacing' in ctx && !isNaN(px)) {
         (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing =
-          `${parseFloat(ls) * SCALE}px`
+          `${px * SCALE}px`
       }
     }
 
@@ -169,8 +170,13 @@ export default function Calculator() {
       ctx.font         = `${titleData.fontWeight} ${titleData.fontSize * SCALE}px ${titleData.fontFamily}`
       ctx.fillStyle    = titleData.color
       applyLS(titleData.letterSpacing)
-      ctx.shadowColor  = 'rgba(255, 26, 114, 0.7)'
-      ctx.shadowBlur   = 6 * SCALE
+      // Outer glow (wider, dimmer) — matches CSS text-shadow layer 2
+      ctx.shadowColor = 'rgba(255, 26, 114, 0.3)'
+      ctx.shadowBlur  = 14 * SCALE
+      ctx.fillText(titleData.text, titleData.centerX * SCALE, titleData.centerY * SCALE)
+      // Inner glow + fill (tighter, brighter) — matches CSS text-shadow layer 1
+      ctx.shadowColor = 'rgba(255, 26, 114, 0.7)'
+      ctx.shadowBlur  = 6 * SCALE
       ctx.fillText(titleData.text, titleData.centerX * SCALE, titleData.centerY * SCALE)
       ctx.restore()
     }
